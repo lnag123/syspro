@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <string.h>
+
+#define MAX_LINES 100    
+#define MAX_LINE_LEN 100  
+
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+        exit(1);
+    }
+
+    FILE *file = fopen(argv[1], "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        exit(1);
+    }
+
+    char savedText[MAX_LINES][MAX_LINE_LEN]; 
+    int total_lines = 0;
+¥
+    while (fgets(savedText[total_lines], MAX_LINE_LEN, file)) {
+        total_lines++;
+        if (total_lines >= MAX_LINES) {
+            break; 
+        }
+    }
+    fclose(file);
+
+    printf("File read success\n");
+    printf("Total Line: %d\n", total_lines);
+    printf("You can choose 1 ~ %d Line\n", total_lines);
+
+    char input[50];
+    printf("Pls 'Enter' the line to select: ");
+    fgets(input, sizeof(input), stdin);
+
+    if (strcmp(input, "*\n") == 0) {
+        for (int i = 0; i < total_lines; i++) {
+            printf("%s", savedText[i]);
+        }
+    }
+
+    else if (strchr(input, '-') != NULL) {
+        int start, end;
+        sscanf(input, "%d-%d", &start, &end);
+        if (start > 0 && end <= total_lines && start <= end) {
+            for (int i = start - 1; i <= end - 1; i++) {
+                printf("%s", savedText[i]);
+            }
+        } else {
+            printf("Invalid range\n");
+        }
+    }
+   
+	else if (strchr(input, ',') != NULL) {
+        char *token = strtok(input, ",");
+        while (token != NULL) {
+            int line_num = atoi(token);
+            if (line_num > 0 && line_num <= total_lines) {
+                printf("%s", savedText[line_num - 1]);
+            } else {
+                printf("Invalid line number: %d\n", line_num);
+            }
+            token = strtok(NULL, ",");
+        }
+    }
+	else {
+        int line_num = atoi(input);
+        if (line_num > 0 && line_num <= total_lines) {
+            printf("%s", savedText[line_num - 1]);
+        } else {
+            printf("Invalid line number\n");
+        }
+    }
+
+    return 0; 
+}
+
