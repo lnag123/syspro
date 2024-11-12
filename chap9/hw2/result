@@ -1,0 +1,30 @@
+dcuuser@ssh-lnag123:~/syspro/chap9/hw2$ (echo START1; sleep 10; echo DONE1) &
+[1] 258695
+
+dcuuser@ssh-lnag123:~/syspro/chap9/hw2$ START1 (echo START2; sleep 10; echo DONE2) &
+[2] 258697
+
+dcuuser@ssh-lnag123:~/syspro/chap9/hw2$ START2
+DONE1
+DONE2
+
+kill –KILL 첫 번째 프로세스
+bash: kill: –KILL: arguments must be process or job IDs
+bash: kill: 첫: arguments must be process or job IDs
+bash: kill: 번째: arguments must be process or job IDs
+bash: kill: 프로세스: arguments must be process or job IDs
+[1]-  Done                    ( echo START1; sleep 10; echo DONE1 )
+[2]+  Done                    ( echo START2; sleep 10; echo DONE2 )
+
+dcuuser@ssh-lnag123:~/syspro/chap9/hw2$ kill –STOP 첫 번째 프로세스
+bash: kill: –STOP: arguments must be process or job IDs
+bash: kill: 첫: arguments must be process or job IDs
+bash: kill: 번째: arguments must be process or job IDs
+bash: kill: 프로세스: arguments must be process or job IDs
+
+dcuuser@ssh-lnag123:~/syspro/chap9/hw2$ kill –CONT 첫 번째 프로세스
+bash: kill: –CONT: arguments must be process or job IDs
+bash: kill: 첫: arguments must be process or job IDs
+bash: kill: 번째: arguments must be process or job IDs
+bash: kill: 프로세스: arguments must be process or job IDs
+

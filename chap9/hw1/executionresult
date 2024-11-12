@@ -1,0 +1,27 @@
+dcuuser@ssh-lnag123:~$ sleep 100&
+[1] 258647
+
+dcuuser@ssh-lnag123:~$ sleep 100&
+[2] 258650
+
+dcuuser@ssh-lnag123:~$ jobs
+[1]-  Running                 sleep 100 &
+[2]+  Running                 sleep 100 &
+
+dcuuser@ssh-lnag123:~$ ps -f
+UID          PID    PPID  C STIME TTY          TIME CMD
+dcuuser   258634       0  0 05:20 pts/16   00:00:00 /bin/bash -l
+dcuuser   258647  258634  0 05:20 pts/16   00:00:00 sleep 100
+dcuuser   258650  258634  0 05:20 pts/16   00:00:00 sleep 100
+dcuuser   258652  258634  0 05:21 pts/16   00:00:00 ps -f
+
+dcuuser@ssh-lnag123:~/syspro/chap9/hw1$ kill %1
+
+dcuuser@ssh-lnag123:~/syspro/chap9/hw1$ ps -f
+UID          PID    PPID  C STIME TTY          TIME CMD
+dcuuser   258634       0  0 05:20 pts/16   00:00:00 /bin/bash -l
+dcuuser   258650  258634  0 05:20 pts/16   00:00:00 sleep 100
+dcuuser   258662  258634  0 05:22 pts/16   00:00:00 ps -f
+[1]-  Terminated              sleep 100  (wd: ~)
+(wd now: ~/syspro/chap9/hw1)
+
